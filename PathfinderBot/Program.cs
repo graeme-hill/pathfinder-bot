@@ -33,14 +33,6 @@ namespace PathfinderBot
         static void Main(string[] args)
         {
             Run();
-            //var task = Task.Factory.StartNew(() => Run());
-
-            //Console.WriteLine("Press <enter> to quit");
-            //Console.ReadLine();
-
-            //_running = false;
-
-            //task.Wait();
         }
 
         private static void Run()
@@ -65,8 +57,6 @@ namespace PathfinderBot
             if (Keyboard.IsKeyDown(Key.RightCtrl))
                 _autoPilotEnabled = true;
 
-            //g.Clear(Color.Transparent);
-
             DrawScreenshotArea(g);
             Screenshot();
 
@@ -82,17 +72,7 @@ namespace PathfinderBot
                     var carPosition = new Point(roadPosition.Value.X - TRAIL_DISTANCE, roadPosition.Value.Y);
                     SetMousePosition(Translate(carPosition));
                 }
-
-                Console.WriteLine(":-)        ---->     " + Guid.NewGuid());
             }
-            else
-            {
-                Console.WriteLine(Guid.NewGuid());
-            }
-
-            //var pixelColor = GetPixel(29, 11);
-            //SolidBrush b = new SolidBrush(pixelColor);
-            //g.FillRectangle(b, new Rectangle(0, 0, 30, 30));
         }
 
         private static Point? FindRoad()
@@ -117,9 +97,6 @@ namespace PathfinderBot
 
                     if (ColorsAreClose(thisPixelColor, laneDividerColor, 1))
                     {
-                        // found a pixel that looks like it could be center of car, so look for red
-                        // pixels around it
-
                         var pass = false;
                         for (var y2 = y; y2 < y + 5; y2++)
                         {
@@ -170,7 +147,6 @@ namespace PathfinderBot
         {
             g.FillRectangle(DEBUG_BRUSH, new Rectangle(SCREENSHOT_AREA.X, SCREENSHOT_AREA.Y - 20, SCREENSHOT_AREA.Width, 20));
             g.FillRectangle(DEBUG_BRUSH, new Rectangle(SCREENSHOT_AREA.X, SCREENSHOT_AREA.Y + SCREENSHOT_AREA.Height, SCREENSHOT_AREA.Width, 20));
-            //g.DrawRectangle(DEBUG_PEN, SCREENSHOT_AREA);
         }
 
         private static bool ColorsAreClose(Color a, Color b, int closiness = 10)
