@@ -22,6 +22,7 @@ namespace PathfinderBot
         private static readonly Size DEBUG_POINT_SIZE = new Size(10, 10);
         private static readonly Rectangle SCREENSHOT_AREA = new Rectangle(450, 150, 20, 340);
         private static readonly int TRAIL_DISTANCE = 30;
+        private static readonly bool DRAW_DEBUG_STUFF = false;
 
         private static readonly Bitmap _screenshotBitmap = new Bitmap(SCREENSHOT_AREA.Width, SCREENSHOT_AREA.Height);
         private static readonly Graphics _screenshotGraphics = Graphics.FromImage(_screenshotBitmap);
@@ -57,15 +58,18 @@ namespace PathfinderBot
             if (Keyboard.IsKeyDown(Key.RightCtrl))
                 _autoPilotEnabled = true;
 
-            DrawScreenshotArea(g);
+            if (DRAW_DEBUG_STUFF)
+                DrawScreenshotArea(g);
+            
             Screenshot();
 
             var roadPosition = FindRoad();
             if (roadPosition != null)
             {
-                g.FillRectangle(
-                    DEBUG_BRUSH, 
-                    new Rectangle(Translate(roadPosition.Value), DEBUG_POINT_SIZE));
+                if (DRAW_DEBUG_STUFF)
+                    g.FillRectangle(
+                        DEBUG_BRUSH, 
+                        new Rectangle(Translate(roadPosition.Value), DEBUG_POINT_SIZE));
 
                 if (_autoPilotEnabled)
                 {
